@@ -116,6 +116,13 @@ amplitude.oninput = (e) => {
     limitCells = e.target.value;
 }
 
+// Width Wave
+
+const widthWave = document.getElementById('wave-width');
+widthWave.oninput = (e) => {
+    waveWidth = e.target.value;
+}
+
 // ----------- INPUT SECTION ----------
 
 // Functions Sections
