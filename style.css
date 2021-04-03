@@ -73,6 +73,8 @@ position: relative;
     align-items: center;
     padding-top: 1rem;
     padding-bottom: 1rem;
+
+    display: none;
 }
 
 .buttons {
@@ -121,4 +123,11 @@ position: relative;
 
 .hint {
     font-size: 12px;
+}
+
+.wave-config-box {
+    color: #fff
+}
+.wave-config-box label {
+    margin-left: 10px;
 }

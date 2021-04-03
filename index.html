@@ -26,10 +26,12 @@
                         <div class="input-color-container">
                             <label for="inputPrimaryColor">Primary Color</label>
                             <input class="input-color" id="inputPrimaryColor" name="inputPrimaryColor" type="text">
+                            <i class="input-warning" id="inputPrimaryColorWarning" >Formato Incorreto</i>
                         </div>
                         <div class="input-color-container">
                             <label for="inputSecondaryColor">Secondary Color</label>
                             <input class="input-color" id="inputSecondaryColor" name="inputSecondaryColor" type="text">
+                            <i class="input-warning" id="inputSecondaryColorWarning" >Formato Incorreto</i>
                         </div>
                     </div>
                     <button class="buttons" id="change-color">Change Color</button>
@@ -37,6 +39,14 @@
                 <button class="buttons" id="pause-wave">Pause Wave</button>
                 <button class="buttons" id="play-wave">Play Wave</button>
                 <button class="buttons" id="clear-wave">Clear Wave</button>
+                <div class="wave-config-box">
+                    <label class="config-labels" for="amplitude">Amplitude</label>
+                    <input class="wave-config" id="amplitude" type="range" min="1" max="40" value="20">
+                </div>
+                <div class="wave-config-box">
+                    <label class="config-labels" for="wave-width">Width</label>
+                    <input class="wave-config" id="wave-width" type="range" min="5" max="20" value="10">
+                </div>
             </div>
         </div>
         <div class="wave-display">

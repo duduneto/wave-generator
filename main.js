@@ -5,11 +5,11 @@
 var colorOne = '33303d';
 var colorTwo = 'd1a471';
 
-const colorOneNum = parseInt(colorOne, 16);
-const colorTwoNum = parseInt(colorTwo, 16);
+var colorOneNum = parseInt(colorOne, 16);
+var colorTwoNum = parseInt(colorTwo, 16);
 
-const colorOneRGB = colorOne.match(/.{1,2}/g);
-const colorTwoRGB = colorTwo.match(/.{1,2}/g);
+var colorOneRGB = colorOne.match(/.{1,2}/g);
+var colorTwoRGB = colorTwo.match(/.{1,2}/g);
 
 
 const diff = Math.abs(colorOneNum - colorTwoNum);
@@ -19,6 +19,7 @@ const columns = new Array(parseInt(window.screen.width / 18)).fill(0);
 var limitCells = 20;
 var speedWave = 50;
 var sinoidH = 15;
+var waveWidth = 10;
 
 // -------  Global Variables  --------
 
@@ -40,33 +41,87 @@ playBtn.addEventListener('click', function () {
 const clearBtn = document.getElementById("clear-wave");
 clearBtn.addEventListener('click', clearWave);
 
+const changeColor = document.getElementById('change-color');
+changeColor.addEventListener('click', () => {
+    const container = document.getElementsByClassName('change-color-options')[0];
+    if (container.style.display === 'none' || container.style.display === '') {
+        container.style.display = 'flex';
+    } else {
+        container.style.display = 'none';
+    }
+})
+
 // -------  Button Sections  --------
 
 // INPUT SECTION ---------------------
 
-function isHexColor (hex) {
+function isHexColor(hex) {
+    console.log('Hex => ', hex)
     return typeof hex === 'string'
-        && hex.length === 6
+        && hex.length <= 6
         && !isNaN(Number('0x' + hex))
-  }
+}
+
+function handlePrefixInput(e, element) {
+    console.log('value => ', e.target.value);
+    element.value = element.value && element.value.includes('#') ? e.target.value : "#"
+}
+
+function handleInput(e, element, warningId) {
+    console.log('e => ', e.target.value)
+    if (!e.target.value) {
+        element.value = "#"
+    }
+    if (e.target.value.length > 7) {
+        element.value = String(e.target.value).substr(0, 7);
+    }
+    const elementWarning = document.getElementById(warningId);
+    if (!isHexColor(e.target.value.replace(/[^A-Za-z0-9]/g, ""))) {
+        elementWarning.innerHTML = 'Wrong color hexadecimal format'
+        elementWarning.style.display = 'flex';
+    } else {
+        elementWarning.style.display = 'none';
+    }
+}
+
 
 const inputBackgroundColor = document.getElementById('inputBackgroundColor');
-inputBackgroundColor.addEventListener('mousedown', (e) => {
-    console.log('value => ', e.target.value);
-    inputBackgroundColor.value = !inputBackgroundColor.value && "#"
-})
-inputBackgroundColor.addEventListener('input', (e) => {
-    if(!isHexColor(e.target.value)) {
-        
-    }
-})
+inputBackgroundColor.addEventListener('mousedown', (e) => handlePrefixInput(e, inputBackgroundColor))
+inputBackgroundColor.addEventListener('input', (e) => handleInput(e, inputBackgroundColor, 'inputBackgroundColorWarning'));
+const inputPrimaryColor = document.getElementById('inputPrimaryColor');
+inputPrimaryColor.addEventListener('mousedown', (e) => handlePrefixInput(e, inputPrimaryColor))
+inputPrimaryColor.addEventListener('input', (e) => handleInput(e, inputPrimaryColor, 'inputPrimaryColorWarning'));
+const inputSecondaryColor = document.getElementById('inputSecondaryColor');
+inputSecondaryColor.addEventListener('mousedown', (e) => handlePrefixInput(e, inputSecondaryColor))
+inputSecondaryColor.addEventListener('input', (e) => handleInput(e, inputSecondaryColor, 'inputSecondaryColorWarning'));
+
+
+inputBackgroundColor.onchange = (element) => {
+    document.getElementsByClassName('main-screen')[0].style.backgroundColor = element.target.value
+}
+inputPrimaryColor.onchange = (element) => {
+    colorOne = element.target.value.replace(/[^A-Za-z0-9]/g, "");
+    colorOneNum = parseInt(colorOne, 16);
+    colorOneRGB = colorOne.match(/.{1,2}/g);
+}
+inputSecondaryColor.onchange = (element) => {
+    colorTwo = element.target.value.replace(/[^A-Za-z0-9]/g, "");
+    colorTwoNum = parseInt(colorTwo, 16);
+    colorTwoRGB = colorTwo.match(/.{1,2}/g);
+}
+
+// Amplitude
+const amplitude = document.getElementById('amplitude');
+amplitude.oninput = (e) => {
+    limitCells = e.target.value;
+}
 
 // ----------- INPUT SECTION ----------
 
 // Functions Sections
 
 function onChangeInputColor(e) {
-    console.log('e => ',e );
+    console.log('e => ', e);
 }
 
 function turnNumToHex(num) {
@@ -107,7 +162,7 @@ function generateWave() {
         const column = document.createElement("DIV");
         display.appendChild(column)
         column.classList.add('wave-column');
-        const amountCells = parseInt((limitCells / 2) * Math.sin((_i + sinoidH) / 10)) + (limitCells / 2);
+        const amountCells = parseInt((limitCells / 2) * Math.sin((_i + sinoidH) / waveWidth)) + (limitCells / 2);
 
         for (let i = 0; i < amountCells; i++) {
             const rgbDiffsOnlyNum = [
@@ -145,11 +200,15 @@ generateLoop();
 function changeButtons() {
 
     const _buttons = window.document.getElementsByClassName('buttons');
+    const labels = window.document.getElementsByClassName('config-labels');
     for (let i = 0; i < _buttons.length; i++) {
         _buttons[i].style.backgroundColor = `#${colorOne}`
         _buttons[i].classList.remove(colorOneNum > 5000000 ? 'light' : 'dark')
         _buttons[i].classList.add(colorOneNum > 5000000 ? 'dark' : 'light')
-    
+    }
+    for (let i = 0; i < labels.length; i++) {
+        labels[i].classList.remove(colorOneNum > 5000000 ? 'light' : 'dark')
+        labels[i].classList.add(colorOneNum > 5000000 ? 'dark' : 'light')
     }
 };
 
