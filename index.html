@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <main class="main-screen">
+        <div class="options-wave-display">
+            <div class="options-container">
+                <div class="change-color-container">
+                    <div class="change-color-options">
+                        <span class="hint">Use hexadecimal color</span>
+                        <div class="input-color-container">
+                            <label for="inputBackgroundColor">Background Color</label>
+                            <input class="input-color" id="inputBackgroundColor" name="inputBackgroundColor" type="text">
+                            <i class="input-warning" id="inputBackgroundColorWarning" >Formato Incorreto</i>
+                        </div>
+                        <div class="input-color-container">
+                            <label for="inputPrimaryColor">Primary Color</label>
+                            <input class="input-color" id="inputPrimaryColor" name="inputPrimaryColor" type="text">
+                        </div>
+                        <div class="input-color-container">
+                            <label for="inputSecondaryColor">Secondary Color</label>
+                            <input class="input-color" id="inputSecondaryColor" name="inputSecondaryColor" type="text">
+                        </div>
+                    </div>
+                    <button class="buttons" id="change-color">Change Color</button>
+                </div>
+                <button class="buttons" id="pause-wave">Pause Wave</button>
+                <button class="buttons" id="play-wave">Play Wave</button>
+                <button class="buttons" id="clear-wave">Clear Wave</button>
+            </div>
+        </div>
+        <div class="wave-display">
+        </div>
+    </main>
+</body>
+
+</html>
+<script src="main.js"></script>
