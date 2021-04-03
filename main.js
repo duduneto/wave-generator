@@ -4,6 +4,7 @@
 
 var colorOne = '33303d';
 var colorTwo = 'd1a471';
+var backgroundColor = '#000'
 
 var colorOneNum = parseInt(colorOne, 16);
 var colorTwoNum = parseInt(colorTwo, 16);
@@ -123,6 +124,12 @@ widthWave.oninput = (e) => {
     waveWidth = e.target.value;
 }
 
+// Speed Wave
+const waveSpeed = document.getElementById('wave-speed');
+waveSpeed.oninput = (e) => {
+    speedWave = e.target.value;
+}
+
 // ----------- INPUT SECTION ----------
 
 // Functions Sections
@@ -217,6 +224,7 @@ function changeButtons() {
         labels[i].classList.remove(colorOneNum > 5000000 ? 'light' : 'dark')
         labels[i].classList.add(colorOneNum > 5000000 ? 'dark' : 'light')
     }
+
 };
 
 changeButtons();
